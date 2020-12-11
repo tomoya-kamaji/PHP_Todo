@@ -1,5 +1,4 @@
 <!-- DBの接続 -->
-<!-- 色々追記 -->
 <?php
 try {
   $db = new PDO('mysql:dbname=mini_todo;host=localhost:8889;charset=utf8', 'root', 'root');
