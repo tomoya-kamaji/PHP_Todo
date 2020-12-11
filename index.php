@@ -5,18 +5,30 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
-  $_SESSION['time'] = time();
-  $members = $db->prepare('SELECT * FROM members WHERE id=?');
-  $members->execute(array($_SESSION['id']));
+  $_SESSION['time'] = time(); //セッションの時間を初期化
+  $members = $db->prepare('SELECT * FROM members WHERE id=?'); //メンバーを選択する。引数を持たせて準備
+  $members->execute(array($_SESSION['id'])); //バインド引数をもたせて実行する
   $member = $members->fetch();
-  echo('<pre>');
+  echo ('<pre>');
   var_dump($member);
-  echo('</pre>');
-  
+  echo ('</pre>');
 } else {
   header('Location:login.php');
   exit();
 }
+
+if (!empty($_POST)) {
+  if ($_POST['insert_task'] !== '') {
+    $message = $db->prepare('INSERT INTO tasks SET member_id=?, taskname=?,created=NOW()');
+    $message->execute(array(
+      $member['id'],
+      $_POST['insert_task'],
+    ));
+  } else {
+    $error['insert_task'] = 'blank';
+  }
+}
+
 
 //タスクを取得する
 $tasks = $db->prepare('SELECT * FROM tasks WHERE member_id=?');
@@ -30,12 +42,28 @@ $tasks->execute(array($member['id']));
 <head>
   <meta charset="UTF-8">
   <title>ToDo List</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="\style.css">
 </head>
 
 <body>
-  <h1>To Do List</h1>
+  <h1>ToDo List</h1>
+
+  <form action="" method="post">
+    <dl>
+      <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)); ?>さん、メッセージをどうぞ</dt>
+      <dd>
+        <textarea name="insert_task" cols="50" rows="5"><?php print(htmlspecialchars($message, ENT_QUOTES)); ?></textarea>
+        <?php if ($error['insert_task'] === 'blank') : ?>
+          <p class="error">*タスクを入力してください</p>
+        <?php endif; ?>
+      </dd>
+    </dl>
+    <div>
+      <p>
+        <input type="submit" value="投稿する" />
+      </p>
+    </div>
+  </form>
 
   <div class="form-group">
     <label class="control-label">タスク</label>
@@ -56,10 +84,7 @@ $tasks->execute(array($member['id']));
     ?>
   </ul>
 
-  <a href="insert.php">タスク登録</a>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
