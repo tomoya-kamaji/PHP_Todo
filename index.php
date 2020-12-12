@@ -7,8 +7,8 @@ $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $_SESSION['time'] = time(); //セッションの時間を初期化
   $members = $db->prepare('SELECT * FROM members WHERE id=?'); //メンバーを選択する。引数を持たせて準備
-  $members->execute(array($_SESSION['id'])); //バインド引数をもたせて実行する
-  $member = $members->fetch();
+  $members->execute(array($_SESSION['id'])); //引数をもたせて実行する
+  $member = $members->fetch();//フェッチモードで取り出す
   echo ('<pre>');
   var_dump($member);
   echo ('</pre>');

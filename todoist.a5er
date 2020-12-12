@@ -1,0 +1,182 @@
+﻿# A5:ER FORMAT:13
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  http://www.wind.sannet.ne.jp/m_matsu/developer/a5m2/
+
+[Manager]
+ProjectName=Todoist_clone
+Author=kamaji
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=NEW_ENTITY1
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=550
+Top=100
+Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="name","名前","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="email","メールアドレス","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="password","パスワード","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="picture","写真のパス","@VARCHAR",,,"","",$FFFFFFFF,""
+Field="created","作成日","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20201213075349
+Position="MAIN",550,100,151,251
+ZOrder=0
+
+[Entity]
+PName=NEW_ENTITY2
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=800
+Top=100
+Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="taskname","タスク名","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="member_id","メンバーid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="main_task_id","主タスク","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="created","作成日","@DATE",,,"","",$FFFFFFFF,""
+Field="tag_id","タグid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20201213075639
+Position="MAIN",800,100,235,279
+ZOrder=1
+
+[Line]
+Page=Main
+Left=679
+Top=85
+ZOrder=2
+Width=0
+Height=-2
+
+[Line]
+Page=Main
+Left=447
+Top=224
+ZOrder=3
+Width=0
+Height=0
+
+[Relation]
+Entity1=NEW_ENTITY1
+Entity2=NEW_ENTITY2
+RelationType1=2
+RelationType2=4
+Fields1=id
+Fields2=メンバーid
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,1603,8286,1693,R,R
+Dependence=0
+Caption=
+PName=
+ModifiedDateTime=20201213083554
+LineMode=0
+Bar1=160
+Bar2=829
+Bar3=169
+TermPos1=R
+TermPos2=R
+ZOrder=4
+
+[Entity]
+PName=NEW_ENTITY3
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=1250
+Top=300
+Field="id","id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="タグ名前","タスク名","@VARCHAR","NOT NULL",,"","",$FFFFFFFF,""
+Field="created","作成日","@DATE",,,"","",$FFFFFFFF,""
+Field="member_id","タグid","@INT","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20201213083158
+Position="MAIN",1250,300,229,230
+ZOrder=5
+
+[Relation]
+Entity1=NEW_ENTITY2
+Entity2=NEW_ENTITY3
+RelationType1=2
+RelationType2=3
+Fields1=タグid
+Fields2=id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5730,4292,4701,R,R
+Dependence=1
+Caption=
+PName=
+ModifiedDateTime=20201213083455
+LineMode=0
+Bar1=573
+Bar2=429
+Bar3=470
+TermPos1=R
+TermPos2=R
+ZOrder=6
+
+[Relation]
+Entity1=NEW_ENTITY2
+Entity2=NEW_ENTITY2
+RelationType1=2
+RelationType2=3
+Fields1=id
+Fields2=主タスク
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,7500,2291,9500,R,R
+Dependence=0
+Caption=
+PName=
+LineColor=$00008000
+ModifiedDateTime=20201213083438
+LineMode=0
+Bar1=750
+Bar2=229
+Bar3=950
+TermPos1=R
+TermPos2=R
+ZOrder=7
