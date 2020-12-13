@@ -68,9 +68,12 @@ $tasks->execute(array($member['id']));
   <div class="form-group">
     <label class="control-label">タスク</label>
     <?php foreach ($tasks as $task) { ?>
-      <div class="form-check">
+      <div class="tasklist">
         <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
         <label class="form-check-label" for="defaultCheck1"><?= htmlspecialchars($task["taskname"], ENT_QUOTES) ?></label>
+        <a href="subtask.php">サブタスク</a>
+        <a href="edit.php">編集</a>
+        <a href="delete.php?id=<?php print(htmlspecialchars($task['id'])); ?>">☓</a>
       </div>
     <?php  } ?>
   </div>

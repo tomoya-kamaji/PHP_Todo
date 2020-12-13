@@ -4,3 +4,6 @@ body {
   right: 20px;
 }
 
+div.tasklist{
+  display: inline;
+}
